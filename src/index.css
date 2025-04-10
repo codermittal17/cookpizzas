@@ -1,13 +1,88 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Navbar CSS Styles */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+  font-size: 1.5rem;
+  color: khaki;
+  background-color: rgb(160, 153, 86);
+}
+
+.nav-heading {
+  width: 60rem;
+  text-align: center;
+}
+
+/* Main Container CSS Styles */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  gap: 2rem;
+  max-height: calc(100vh - 10vh);
+  overflow: scroll;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.pizzas-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 40%;
+}
+
+.pizza{
+  display: flex;
+  flex-direction: column;
+}
+
+.pizza-item-image{
+  height: 90%;
+  width: 100%;
+  z-index: -1;
+  position: relative;
+}
+
+.pizza-image-wrapper::before{
+  content: "hey";
+  color: white;
+  z-index: 2;
+  position: absolute;
+  top: 10px; 
+  left: 10px;
+}
+
+.pizza-item-info{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.pizza-item-title{
+  font-size: 1rem;
+}
+
+.recipe{
+  cursor: pointer;
 }
