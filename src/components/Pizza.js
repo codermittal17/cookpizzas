@@ -1,12 +1,19 @@
-function Pizza({ pizza }) {
+import { FaHeart } from "react-icons/fa"
+
+function Pizza({ pizza, onClickToggleRecipeTab, onClickAddToFavouriteBtn, favouritePizzasList }) {
+    const { title, image_url, recipe_id: id } = pizza;
     return (
         <li className="pizza">
-            <div className="pizza-image-wrapper">
-                <img src={pizza.image_url} alt="pizzaImage" className="pizza-item-image" />
-            </div>
+            <FaHeart
+                className={`add-to-favourite-icon ${favouritePizzasList.some((item) => item.recipe_id === id) ? `favourite` : ``}`}
+                onClick={() => onClickAddToFavouriteBtn(pizza)}
+            />
+            <img src={image_url} alt="pizzaImage" className="pizza-item-image" />
+
+
             <div className="pizza-item-info">
-                <h5 className="pizza-item-title">{pizza.title}</h5>
-                <p className="recipe">See Recipe</p>
+                <h5 className="pizza-item-title">{title}</h5>
+                <p className="recipe" onClick={onClickToggleRecipeTab}>See Recipe</p>
             </div>
         </li>
     )

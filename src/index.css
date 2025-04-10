@@ -28,6 +28,28 @@ code {
   text-align: center;
 }
 
+.fav-icon-container {
+  cursor: pointer;
+}
+
+.fav-icon-container {
+  position: relative;
+}
+
+.fav-pizzas-count {
+  position: absolute;
+  background-color: red;
+  color: white;
+  padding: 0.2rem;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: -1.2rem;
+  height: 1rem;
+  top: -0.6rem;
+}
+
 /* Main Container CSS Styles */
 .main {
   display: flex;
@@ -51,38 +73,53 @@ code {
   width: 40%;
 }
 
-.pizza{
+.pizza {
   display: flex;
   flex-direction: column;
-}
-
-.pizza-item-image{
-  height: 90%;
-  width: 100%;
-  z-index: -1;
   position: relative;
 }
 
-.pizza-image-wrapper::before{
-  content: "hey";
+.add-to-favourite-icon {
+  position: absolute;
+  right: 0.6rem;
   color: white;
   z-index: 2;
-  position: absolute;
-  top: 10px; 
-  left: 10px;
+  top: 0.5rem;
+  cursor: pointer;
 }
 
-.pizza-item-info{
+.add-to-favourite-icon:hover {
+  color: red;
+}
+
+.favourite {
+  color: red;
+}
+
+/* .pizza::before{
+  content: "HEY";
+  position: absolute;
+  z-index: 2;
+  color: wheat;
+  right: 0.4rem;
+} */
+
+.pizza-item-image {
+  height: 90%;
+  width: 100%;
+}
+
+.pizza-item-info {
   display: flex;
   align-items: center;
   gap: 2rem;
   justify-content: space-between;
 }
 
-.pizza-item-title{
+.pizza-item-title {
   font-size: 1rem;
 }
 
-.recipe{
+.recipe {
   cursor: pointer;
 }
