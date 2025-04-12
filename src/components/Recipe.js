@@ -1,11 +1,13 @@
-function Recipe({handleToggleShowRecipeTab, selectedPizzaId}) {
+function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
     return (
-        <div>
-            Recipe | {selectedPizzaId}
-
-            <br />
-            <div onClick={handleToggleShowRecipeTab}>back</div>
-        </div>
+        <>
+            <div>
+                Recipe | {selectedPizzaId}
+            </div>
+            <div onClick={()=>OnToggleTypeOfBox("menu")}>
+                Go to Menu
+            </div>
+        </>
     )
 }
 

@@ -1,6 +1,6 @@
 import { FaHeart } from "react-icons/fa"
 
-function Pizza({ pizza, onClickToggleRecipeTab, onClickAddToFavouriteBtn, favouritePizzasList }) {
+function Pizza({ pizza, OnToggleTypeOfBox, onClickAddToFavouriteBtn, favouritePizzasList }) {
     const { title, image_url, recipe_id: id } = pizza;
     return (
         <li className="pizza">
@@ -13,7 +13,7 @@ function Pizza({ pizza, onClickToggleRecipeTab, onClickAddToFavouriteBtn, favour
 
             <div className="pizza-item-info">
                 <h5 className="pizza-item-title">{title}</h5>
-                <p className="recipe" onClick={onClickToggleRecipeTab}>See Recipe</p>
+                <p className="recipe" onClick={() => { OnToggleTypeOfBox("recipe") }}>See Recipe</p>
             </div>
         </li>
     )
