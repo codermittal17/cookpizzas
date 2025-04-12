@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navbar from "./Navbar"
 import Main from "./Main"
@@ -6,6 +6,7 @@ import Menu from "./Menu"
 import Recipe from "./Recipe"
 import Favourites from "./Favourites"
 import Pizza from "./Pizza";
+import FullPageLoader from "./FullPageLoader";
 
 const pizzaData = [
   {
@@ -33,13 +34,19 @@ const pizzaData = [
 function App() {
   const [favouritePizzasList, setfavouritePizzasList] = useState([]);
   const [typeOfBox, setTypeOfBox] = useState("menu");
+  const [pizzaData, setPizzaData] = useState([]);
+  const [selectedPizzaId, setSelectedPizzaId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const numFavPizzas = favouritePizzasList.length;
 
   function handleTypeOfBoxToggle(type) {
     setTypeOfBox((typeOfBox) => typeOfBox === type ? "menu" : type);
   }
 
-
-  const numFavPizzas = favouritePizzasList.length;
+  function handlePizzaSelection(pizza){
+    setSelectedPizzaId(pizza.recipe_id);
+  }
 
 
 
@@ -49,24 +56,57 @@ function App() {
       setfavouritePizzasList((pizza) => [...pizza, pizzaObj])
   }
 
+  useEffect(function () {
+    async function getPizzaData() {
+      try {
+        setIsLoading(true);
+
+        const res = await fetch('https://forkify-api.herokuapp.com/api/search?q=pizza');
+
+        if (!res.ok) throw new Error("Network Related Issue");
+
+        const data = await res.json();
+        setPizzaData(data.recipes);
+      }
+      catch (error) {
+        // console.error(`Error: ${error.message}`);
+      }
+      finally {
+        setIsLoading(false);
+      }
+    }
+
+    getPizzaData();
+  }, [])
+
   return (
     <>
+      {
+        isLoading ? <FullPageLoader /> :
+      <>
       <Navbar numFavPizzas={numFavPizzas} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
       <Main>
         <div className="main">
-          <h3>Learn and Cook Delicious Pizza</h3>
+          <h3>
+            {
+              typeOfBox === "menu" && "Learn and Cook Delicious Pizza"
+            }
+            {
+              typeOfBox === "recipe" && "Recipe"
+            }
+          </h3>
 
           {
             typeOfBox === "menu" && <Menu>
               <ul className="pizzas-list">
                 {
-                  pizzaData.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList}  OnToggleTypeOfBox={handleTypeOfBoxToggle}  />)
+                  pizzaData.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList} OnToggleTypeOfBox={handleTypeOfBoxToggle} onPizzaSelection={handlePizzaSelection} />)
                 }
               </ul>
             </Menu>
           }
           {
-            typeOfBox === "recipe" && <Recipe selectedPizzaId={1} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
+            typeOfBox === "recipe" && <Recipe selectedPizzaId={selectedPizzaId} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
           }
           {
             typeOfBox === "favourites" && (
@@ -83,6 +123,8 @@ function App() {
           }
         </div>
       </Main>
+      </>
+      }
     </>
   )
 }

@@ -120,6 +120,107 @@ code {
   font-size: 1rem;
 }
 
+/* recipe styling */
+.back-to-menu-btn{
+  border: 2px solid rgb(160, 153, 86);
+  padding: 0.4rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
 .recipe {
   cursor: pointer;
+}
+
+/* .recipe-container{
+  width: 40%;
+  border: 2px solid rgb(192, 188, 160);
+}
+.recipe-container > img{
+  width: 100%;
+}
+
+.pizza-description{
+  background-color: wheat;
+  height: 100%;
+  border: 2px solid red;
+} */
+
+.recipe-container {
+  width: 40%;
+  border: 2px solid rgb(192, 188, 160);
+  border-radius: 1rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  background-color: #fff5e1;
+}
+
+.recipe-container:hover {
+  transform: scale(1.02);
+}
+
+.recipe-container > img {
+  width: 100%;
+  height: auto;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  object-fit: cover;
+  border-bottom: 2px solid rgb(192, 188, 160);
+}
+
+.pizza-description {
+  padding: 1.5rem;
+  background-color: rgb(225, 219, 158);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pizza-description h2 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  color: #8b0000;
+}
+
+.pizza-description h3 {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  color: #4b3f2f;
+}
+
+.pizza-description ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.pizza-description li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* loader styling */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #333;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
