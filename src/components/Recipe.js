@@ -1,22 +1,6 @@
 import { useEffect, useState } from "react"
 import FullPageLoader from "./FullPageLoader";
 
-// const recipeData = [
-//     {
-//         "recipe_id": "47746",
-//         "title": "Best Pizza Dough Ever",
-//         "image_url": "http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg",
-//         "ingredients": [
-//             "4 1/2 cups (20.25 ounces) unbleached high-gluten, bread, or all-purpose flour, chilled",
-//             "1 3/4 (.44 ounce) teaspoons salt",
-//             "1 teaspoon (.11 ounce) instant yeast",
-//             "1/4 cup (2 ounces) olive oil (optional)",
-//             "1 3/4 cups (14 ounces) water, ice cold (40F)",
-//             "Semolina flour OR cornmeal for dusting"
-//         ]
-//     }
-// ]
-
 function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pizzaRecipeData, setPizzaRecipeData] = useState({});
@@ -35,7 +19,6 @@ function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
                 setPizzaRecipeData(data.recipe);
             }
             catch (error) {
-                // console.error(`Error: ${error.message}`);
             }
             finally {
                 setIsLoading(false);
@@ -57,12 +40,6 @@ function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
                             <h2>{title && title}</h2>
                             <h3>Ingidients</h3>
                             <ul>
-                                {/* <li>4 1/2 cups (20.25 ounces) unbleached high-gluten, bread, or all-purpose flour, chilled</li>
-                                <li>1 3/4 (.44 ounce) teaspoons salt</li>
-                                <li>1 teaspoon (.11 ounce) instant yeast</li>
-                                <li>1/4 cup (2 ounces) olive oil (optional)</li>
-                                <li>1 3/4 cups (14 ounces) water, ice cold (40F)</li>
-                                <li>Semolina flour OR cornmeal for dusting</li> */}
                                 {
                                     ingredients && ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)
                                 }

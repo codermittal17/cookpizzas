@@ -34,8 +34,6 @@ function App() {
   }
 
   useEffect(function () {
-    // const controller = new AbortController();
-    // const signal = controller.signal;
     async function getPizzaData() {
       try {
         setIsLoading(true);
@@ -48,10 +46,6 @@ function App() {
         setPizzaData(data.recipes);
       }
       catch (error) {
-        // if (error.name === 'AbortError') {
-        //   console.log('Fetch was aborted');
-        //   return;
-        // }
       }
       finally {
         setIsLoading(false);
@@ -59,10 +53,6 @@ function App() {
     }
 
     getPizzaData();
-
-    // return function () {
-    //   controller.abort();
-    // }
   }, [])
 
   return (
