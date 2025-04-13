@@ -20,13 +20,12 @@ import FullPageLoader from "./FullPageLoader";
 function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pizzaRecipeData, setPizzaRecipeData] = useState({});
-    const {title, ingredients, image_url} = pizzaRecipeData;
+    const { title, ingredients, image_url } = pizzaRecipeData;
 
     useEffect(function () {
         async function getPizzaDataById() {
             try {
                 setIsLoading(true);
-                console.log(selectedPizzaId);
 
                 const res = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${selectedPizzaId}`);
 
@@ -65,7 +64,7 @@ function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
                                 <li>1 3/4 cups (14 ounces) water, ice cold (40F)</li>
                                 <li>Semolina flour OR cornmeal for dusting</li> */}
                                 {
-                                    ingredients && ingredients.map((ingredient)=><li key={ingredient.recipe_id}>{ingredient}</li>)
+                                    ingredients && ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)
                                 }
                             </ul>
                         </div>

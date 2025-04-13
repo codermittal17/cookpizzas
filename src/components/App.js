@@ -9,7 +9,7 @@ import Pizza from "./Pizza";
 import FullPageLoader from "./FullPageLoader";
 
 function App() {
-  const [favouritePizzasList, setfavouritePizzasList] = useState([]);
+  const [favouritePizzasList, setFavouritePizzasList] = useState([]);
   const [typeOfBox, setTypeOfBox] = useState("menu");
   const [pizzaData, setPizzaData] = useState([]);
   const [selectedPizzaId, setSelectedPizzaId] = useState(null);
@@ -17,8 +17,8 @@ function App() {
 
   const numFavPizzas = favouritePizzasList.length;
 
-  function handleTypeOfBoxToggle(type) {
-    setTypeOfBox((typeOfBox) => typeOfBox === type ? "menu" : type);
+  function handleTypeOfBoxToggle(nextType) {
+    setTypeOfBox((prevType) => prevType === nextType ? "menu" : nextType);
   }
 
   function handlePizzaSelection(pizza) {
@@ -29,8 +29,8 @@ function App() {
 
   function handleAddToFavouriteBtn(pizzaObj) {
     favouritePizzasList.some((pizza) => pizza.recipe_id === pizzaObj.recipe_id)
-      ? setfavouritePizzasList((pizza) => pizza.filter((item) => item.recipe_id !== pizzaObj.recipe_id)) :
-      setfavouritePizzasList((pizza) => [...pizza, pizzaObj])
+      ? setFavouritePizzasList((pizza) => pizza.filter((item) => item.recipe_id !== pizzaObj.recipe_id)) :
+      setFavouritePizzasList((pizza) => [...pizza, pizzaObj])
   }
 
   useEffect(function () {
@@ -71,49 +71,40 @@ function App() {
         isLoading ? <FullPageLoader /> :
           <>
             <Navbar numFavPizzas={numFavPizzas} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
-            <Main>
-              <div className="main">
-                <h3>
-                  {
-                    typeOfBox === "menu" && "Learn and Cook Delicious Pizza"
-                  }
-                  {
-                    typeOfBox === "recipe" && "Recipe"
-                  }
-                </h3>
+            <Main typeOfBox={typeOfBox}>
+              {
+                typeOfBox === "menu" && <Menu>
+                  <ul className="pizzas-list">
+                    {
+                      pizzaData.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList} OnToggleTypeOfBox={handleTypeOfBoxToggle} onPizzaSelection={handlePizzaSelection} />)
+                    }
+                  </ul>
+                </Menu>
+              }
 
-                {
-                  typeOfBox === "menu" && <Menu>
-                    <ul className="pizzas-list">
-                      {
-                        pizzaData.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList} OnToggleTypeOfBox={handleTypeOfBoxToggle} onPizzaSelection={handlePizzaSelection} />)
-                      }
-                    </ul>
-                  </Menu>
-                }
-                {
-                  typeOfBox === "recipe" && <Recipe selectedPizzaId={selectedPizzaId} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
-                }
-                {
-                  typeOfBox === "favourites" && (
-                    <>
-                      <h3>Favourites</h3>
-                      <div className="back-to-menu-btn" onClick={() => handleTypeOfBoxToggle("menu")}>
-                        Go to Menu
-                      </div>
-                      {
-                        numFavPizzas === 0 ? <p>You have no favourite pizzas</p> : <Favourites>
-                          <ul className="pizzas-list">
-                            {
-                              favouritePizzasList.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList} onPizzaSelection={handlePizzaSelection} OnToggleTypeOfBox={handleTypeOfBoxToggle} />)
-                            }
-                          </ul>
-                        </Favourites>
-                      }
-                    </>
-                  )
-                }
-              </div>
+              {
+                typeOfBox === "recipe" && <Recipe selectedPizzaId={selectedPizzaId} OnToggleTypeOfBox={handleTypeOfBoxToggle} />
+              }
+
+              {
+                typeOfBox === "favourites" && (
+                  <>
+                    <h3>Favourites</h3>
+                    <div className="back-to-menu-btn" onClick={() => handleTypeOfBoxToggle("menu")}>
+                      Go to Menu
+                    </div>
+                    {
+                      numFavPizzas === 0 ? <p>You have no favourite pizzas</p> : <Favourites>
+                        <ul className="pizzas-list">
+                          {
+                            favouritePizzasList.map((pizzaObj) => <Pizza pizza={pizzaObj} key={pizzaObj.recipe_id} onClickAddToFavouriteBtn={handleAddToFavouriteBtn} favouritePizzasList={favouritePizzasList} onPizzaSelection={handlePizzaSelection} OnToggleTypeOfBox={handleTypeOfBoxToggle} />)
+                          }
+                        </ul>
+                      </Favourites>
+                    }
+                  </>
+                )
+              }
             </Main>
           </>
       }
