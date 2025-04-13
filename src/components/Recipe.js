@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import FullPageLoader from "./FullPageLoader";
 
-function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
+function Recipe({ selectedPizzaId, dispatch }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pizzaRecipeData, setPizzaRecipeData] = useState({});
     const { title, ingredients, image_url } = pizzaRecipeData;
@@ -31,7 +31,7 @@ function Recipe({ selectedPizzaId, OnToggleTypeOfBox }) {
         <>
             {
                 isLoading ? <FullPageLoader /> : <>
-                    <div className="back-to-menu-btn" onClick={() => OnToggleTypeOfBox("menu")}>
+                    <div className="back-to-menu-btn" onClick={() => dispatch({ type: "TOGGLE_TYPE", payload: "menu" })}>
                         Go to Menu
                     </div>
                     <div className="recipe-container">
