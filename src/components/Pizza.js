@@ -1,6 +1,9 @@
 import { FaHeart } from "react-icons/fa"
+import { usePizzas } from "../contexts/PizzaContext";
 
-function Pizza({ pizza, favouritePizzasList, dispatch }) {
+function Pizza({ pizza }) {
+    const { favouritePizzasList, dispatch } = usePizzas();
+
     const { title, image_url, recipe_id: id } = pizza;
     return (
         <li className="pizza">

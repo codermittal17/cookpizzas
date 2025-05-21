@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import FullPageLoader from "./FullPageLoader";
+import { usePizzas } from "../contexts/PizzaContext";
 
-function Recipe({ selectedPizzaId, dispatch }) {
+function Recipe() {
+    const { selectedPizzaId, dispatch } = usePizzas();
     const [isLoading, setIsLoading] = useState(false);
     const [pizzaRecipeData, setPizzaRecipeData] = useState({});
     const { title, ingredients, image_url } = pizzaRecipeData;
